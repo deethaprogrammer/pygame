@@ -63,8 +63,7 @@ while run:
     text_survice = font.render(f"x score: {score['x']}  |  O score: {score['O']}", True, (250, 210, 0))
     screen.blit(text_survice, (10, 20))
     for symbol in symbols:
-        symbol.draw(screen, boxfont)
-        
+        symbol.draw(screen, boxfont)           
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -75,28 +74,35 @@ while run:
                     if box['rect'].collidepoint(pos) and box['symbol'] is None:
                         box['symbol'] = current_player
                         symbols.append(tic_tac(current_player, box['rect'].center))
-                        
                         if win_chek(boxes, current_player):
                             score[current_player] += 1
                             for box in boxes:
                                 box['symbol'] = None
-                            symbols.clear()
-                            pygame.display.flip()
-                            start = True
-                        current_player = 'O'
+                                symbols.clear()
+                                pygame.display.flip()
+                                start = True
+                        else:   
+                            current_player = 'O'
         elif current_player == 'O':
             random_box = random.choice([box for box in boxes if box['symbol'] is None])
             random_box['symbol'] = current_player
             symbols.append(tic_tac(current_player, random_box['rect'].center))
-            current_player = 'x'
-                       
+            if win_chek(boxes, current_player):
+                score[current_player] += 1
+                for box in boxes:
+                    box['symbol'] = None
+                    symbols.clear()
+                    pygame.display.flip()
+                    start = True
+            else:   
+                current_player = 'x'
+    for box in boxes:
+        pygame.draw.rect(screen, (100, 100, 100), box['rect'], width=3)
     if all(box['symbol'] is not None for box in boxes):
         for box in boxes:
             box['symbol'] = None
             symbols.clear()
             pygame.display.flip()
             start = True
-    for box in boxes:
-        pygame.draw.rect(screen, (100, 100, 100), box['rect'], width=3)
     pygame.display.flip()
 pygame.quit()
