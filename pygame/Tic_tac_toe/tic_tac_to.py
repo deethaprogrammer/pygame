@@ -1,5 +1,6 @@
 import pygame
 from classes import tic_tac
+import random
 
 pygame.init()
 width = 600
@@ -67,23 +68,28 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            pos = pygame.mouse.get_pos()
-            for box in boxes:
-                if box['rect'].collidepoint(pos) and box['symbol'] is None:
-                    box['symbol'] = current_player
-                    symbols.append(tic_tac(current_player, box['rect'].center))
-                    
-                    if win_chek(boxes, current_player):
-                        score[current_player] += 1
-                        for box in boxes:
-                            box['symbol'] = None
-                        symbols.clear()
-                        pygame.display.flip()
-                        start = True
+        if current_player == 'x':
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                for box in boxes:
+                    if box['rect'].collidepoint(pos) and box['symbol'] is None:
+                        box['symbol'] = current_player
+                        symbols.append(tic_tac(current_player, box['rect'].center))
                         
-                    
-                    current_player = 'O' if current_player == 'x' else 'x'
+                        if win_chek(boxes, current_player):
+                            score[current_player] += 1
+                            for box in boxes:
+                                box['symbol'] = None
+                            symbols.clear()
+                            pygame.display.flip()
+                            start = True
+                        current_player = 'O'
+        elif current_player == 'O':
+            random_box = random.choice([box for box in boxes if box['symbol'] is None])
+            random_box['symbol'] = current_player
+            symbols.append(tic_tac(current_player, random_box['rect'].center))
+            current_player = 'x'
+                       
     if all(box['symbol'] is not None for box in boxes):
         for box in boxes:
             box['symbol'] = None
