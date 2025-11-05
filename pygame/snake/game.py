@@ -86,6 +86,7 @@ def draw_start():
 waiting = True
 run = True
 while run:
+    save_scores()
     while waiting:
         draw_start()
         amount_of_food = 1
@@ -189,5 +190,4 @@ while run:
 
 
     pygame.display.update()
-save_scores()
 pygame.quit()
