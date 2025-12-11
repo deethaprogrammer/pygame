@@ -1,7 +1,7 @@
 import pygame
 from screen_and_menu import Menu
 
-move_delay = 20
+move_delay = 30
 
 last_move_time = pygame.time.get_ticks()
 
@@ -68,5 +68,5 @@ while run:
             last_move_time = now
 
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(120)
 pygame.quit()

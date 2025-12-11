@@ -30,11 +30,11 @@ class Snake:
         self.orient()
     def orient(self):
         if self.dx == 1:
-            self.head = pygame.transform.rotate(self.original, 270)
-        elif self.dx == -1:
             self.head = pygame.transform.rotate(self.original, 90)
+        elif self.dx == -1:
+            self.head = pygame.transform.rotate(self.original, 270)
         elif self.dy == 1:
-            self.head = pygame.transform.rotate(self.original, 180)
-        elif self.dy == -1:
             self.head = self.original
+        elif self.dy == -1:
+            self.head = pygame.transform.rotate(self.original, 180)
         pass
