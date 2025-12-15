@@ -12,7 +12,7 @@ class options:
         snake_images = [os.path.join(snake, f) for f in snakes if f.lower().endswith((".png", ".jpg", ".jpeg"))]
         
         self.snake = [pygame.transform.scale(pygame.image.load(img), (40, 40)) for img in snake_images]
-
+        
         self.snake_main = self.snake[0] if self.snake else None
         
         foods = os.listdir(food)

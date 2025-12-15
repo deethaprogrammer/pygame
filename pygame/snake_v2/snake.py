@@ -3,7 +3,7 @@ import pygame
 class Snake:
     def __init__(self, snake_head):
         self.original = snake_head
-        self.head = snake_head
+        self.head = pygame.transform.rotate(snake_head, 90)
         self.width = 40
         self.height = 40
         self.speed = 10
@@ -29,12 +29,19 @@ class Snake:
         
         self.orient()
     def orient(self):
-        if self.dx == 1:
+        if self.next_dir == (1, 0):
             self.head = pygame.transform.rotate(self.original, 90)
-        elif self.dx == -1:
+        elif self.next_dir == (-1, 0):
             self.head = pygame.transform.rotate(self.original, 270)
-        elif self.dy == 1:
+        elif self.next_dir == (0, 1):
             self.head = self.original
-        elif self.dy == -1:
+        elif self.next_dir == (0, -1):
             self.head = pygame.transform.rotate(self.original, 180)
-        pass
+        elif self.next_dir == (-1, -1):
+            self.head = pygame.transform.rotate(self.original, 225)
+        elif self.next_dir == (1, -1):
+            self.head = pygame.transform.rotate(self.original, 135)
+        elif self.next_dir == (-1, 1):
+            self.head = pygame.transform.rotate(self.original, 315)
+        elif self.next_dir == (1, 1):
+            self.head = pygame.transform.rotate(self.original, 45)

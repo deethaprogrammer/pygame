@@ -40,14 +40,22 @@ while run:
         
         if menu.GameMode == 1:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w and not (menu.snake.dy == 1):
+                if event.key == pygame.K_w and not (menu.snake.next_dir == (0, 1)):
                     menu.snake.next_dir = 0, -1
-                if event.key == pygame.K_s and not (menu.snake.dy == -1):
+                if event.key == pygame.K_s and not (menu.snake.next_dir == (0, -1)):
                     menu.snake.next_dir = 0, 1
-                if event.key == pygame.K_a and not (menu.snake.dx == 1):
+                if event.key == pygame.K_a and not (menu.snake.next_dir == (1, 0)):
                     menu.snake.next_dir = -1, 0
-                if event.key == pygame.K_d and not (menu.snake.dx == -1):
+                if event.key == pygame.K_d and not (menu.snake.next_dir == (-1, 0)):
                     menu.snake.next_dir = 1, 0
+                if event.key == pygame.K_q and not (menu.snake.next_dir == (1, 1)):
+                    menu.snake.next_dir = -1, -1
+                if event.key == pygame.K_e and not (menu.snake.next_dir == (-1, 1)):
+                    menu.snake.next_dir = 1, -1
+                if event.key == pygame.K_z and not (menu.snake.next_dir == (1, -1)):
+                    menu.snake.next_dir = -1 , 1
+                if event.key == pygame.K_c and not (menu.snake.next_dir == (-1, -1)):
+                    menu.snake.next_dir = 1, 1
                     
         if menu.GameMode == 2:
             mouse_pos = pygame.mouse.get_pos()
