@@ -33,6 +33,10 @@ while run:
                     if menu.rect_play.collidepoint(mouse_pos):
                         pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
                         menu.GameMode = 1
+                    if menu.rect_option.collidepoint(mouse_pos):
+                        pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
+                        menu.GameMode = 2
+                        menu.Screen()
         
         if menu.GameMode == 1:
             if event.type == pygame.KEYDOWN:
