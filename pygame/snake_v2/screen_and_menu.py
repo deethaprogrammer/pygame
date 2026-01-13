@@ -1,5 +1,7 @@
+#screen_and_menu.py
 import pygame
 from snake import Snake
+from food import Food
 from option import options
 from game_run import Game_runner
 class Menu:
@@ -13,22 +15,28 @@ class Menu:
         self.size = 40
         self.option = options()
         self.snake = Snake(self.option.snake_main)
-        self.runner = Game_runner(self.screen, self.snake)
+        self.food = Food(self.option.food_main)
+        self.runner = Game_runner(self.screen, self.snake, self.food)
+        self.snake_rects = []
+        self.food_rects = []
         
     def Screen(self):
+        # draw background grid
         for x in range(0, self.width, self.size):
             for y in range(0, self.height, self.size):
                 color = (50, 50, 50) if (x // self.size + y // self.size) % 2 == 0 else (60, 60, 60)
                 rect = pygame.Rect(x, y, self.size, self.size)
-                screen = pygame.draw.rect(self.screen, color, rect)
+                pygame.draw.rect(self.screen, color, rect)
+
         if self.GameMode == 0:
             self.text()
-        elif self.GameMode == 1:
-            self.runner.draw_start()
         elif self.GameMode == 2:
             self.Option()
         
     def Option(self):
+        self.snake_rects = []
+        self.food_rects = []
+
         for x in range(0, self.width):
             for y in range(0, self.height - 100, self.size):
                 color = ("grey") if ((100 < x < 140) or (y // 40) % 2 == 1) else ("white")
@@ -41,13 +49,19 @@ class Menu:
         self.screen.blit(choice, (550//2 + 140 - choice.get_width(), 0))
         self.screen.blit(equip, (100//2 - equip.get_width()//2, 0))
         self.screen.blit(self.snake.head, (0, 80))
-        x_ofset = 140
-        self.snake_rects = []
+        self.screen.blit(self.food.img, (0, 160))
+        x_ofset_snake = 140
+        x_ofset_food = 140
         for snake in self.option.snake:
-            rect = pygame.Rect(x_ofset, 80, snake.get_width(), snake.get_height())
-            self.screen.blit(snake, (x_ofset, 80))
+            rect = pygame.Rect(x_ofset_snake, 80, snake.get_width(), snake.get_height())
+            self.screen.blit(snake, (x_ofset_snake, 80))
             self.snake_rects.append(rect)
-            x_ofset += snake.get_width() + 10
+            x_ofset_snake += snake.get_width() + 10
+        for food in self.option.food:
+            rect = pygame.Rect(x_ofset_food, 160, food.get_width(), food.get_height())
+            self.screen.blit(food, (x_ofset_food, 160))
+            self.food_rects.append(rect)
+            x_ofset_food += food.get_width() + 10
         
     def text(self):
         title = self.title_font.render("This is Snake v2.0", True, "Black")

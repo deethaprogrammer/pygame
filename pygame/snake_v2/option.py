@@ -1,3 +1,4 @@
+#option.py
 import os
 import pygame
 pygame.init()
